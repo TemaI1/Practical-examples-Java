@@ -8,8 +8,6 @@
 // Пример 2: а = 11, b = 7, c = 2, d = 1
 // ответ: нет решения.
 
-package Practical_examples_java;
-
 public class Practical001 {
 
     public static void main(String[] args) {
