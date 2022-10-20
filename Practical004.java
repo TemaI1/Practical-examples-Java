@@ -5,8 +5,8 @@ public class Practical004 {
 
     static void tower(int n,char first,char second,char third) {
         if(n == 1) {
-        System.out.println(n + " from " + first + " to " + third);
-        return;
+            System.out.println(n + " from " + first + " to " + third);
+            return;
         }
         tower(n - 1,first,third,second);
         System.out.println(n + " from " + first + " to " + third);
