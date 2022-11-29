@@ -9,7 +9,7 @@ public class Wizard extends Npc {
     }
 
     @Override
-    public void step() {
+    public void step(List<Npc> team) {
         // лечение 
         
     }

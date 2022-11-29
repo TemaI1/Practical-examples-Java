@@ -33,7 +33,7 @@ public abstract class Npc implements BaseInterface{
     }
 
     @Override
-    public void step() {
+    public void step(List<Npc> team) {
         
     }
 
