@@ -14,7 +14,7 @@ public abstract class Npc implements BaseInterface {
     private boolean delivery;
     private boolean magic;
     private String name;
-	private String status;
+	private States state;
     protected List<Npc> team;
     protected Vector2 position;
 
@@ -40,6 +40,31 @@ public abstract class Npc implements BaseInterface {
 
     public String getName() {
         return name;
+    }
+
+    public List<Npc>getTeam() {
+        return team;
+    }
+
+    public States getState() {
+        return state;
+    }
+
+    public double getMaxHealth() {
+        return maxHealth;
+    }
+
+    public int[] getDamage() {
+        return damage;
+    }
+
+    public void setHealth(double health) {
+        if (health > getMaxHealth()) this.health = maxHealth;
+        else this.health = health;
+    }
+
+    public void setState(States state) {
+        this.state = state;
     }
 
     @Override

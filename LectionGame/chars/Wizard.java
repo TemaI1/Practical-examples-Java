@@ -8,4 +8,22 @@ public class Wizard extends Npc {
         super.team = team;
         super.position = new Vector2(x, y);
     }
+
+    @Override
+    public void step(List<Npc> team) {
+        double minHp = Double.MAX_VALUE;
+        int index = 0;
+
+        for (int i = 0; i < getTeam().size(); i++) {
+            if (getState() != States.DEAD && getTeam().get(i).getMaxHealth() - getTeam().get(i).getHealth() != 0) {
+                if (minHp > getTeam().get(i).getMaxHealth() - getTeam().get(i).getHealth()) {
+                    minHp = getTeam().get(i).getMaxHealth() - getTeam().get(i).getHealth();
+                    index = i;
+                }
+            }
+        }
+        if (minHp != Double.MAX_VALUE) {
+            getTeam().get(index).setHealth(getHealth() - getDamage()[0]);
+        }
+    }
 }
