@@ -17,6 +17,7 @@ public abstract class Npc implements BaseInterface {
 	private States state;
     protected List<Npc> team;
     protected Vector2 position;
+    private int protection;
 
     public Npc(int attack, int defence, int shoot, int[] damage, double health, int speed, boolean delivery, boolean magic, String name) {
         this.attack = attack;
@@ -33,9 +34,22 @@ public abstract class Npc implements BaseInterface {
     public Vector2 getPosition() {
         return position;
     }
-	
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
     public double getHealth() {
         return health;
+    }
+
+    public void setHealth(double health) {
+        if (health > getMaxHealth()) this.health = maxHealth;
+        else this.health = health;
+    }
+
+    public double getMaxHealth() {
+        return maxHealth;
     }
 
     public String getName() {
@@ -50,21 +64,25 @@ public abstract class Npc implements BaseInterface {
         return state;
     }
 
-    public double getMaxHealth() {
-        return maxHealth;
+    public void setState(States state) {
+        this.state = state;
     }
 
     public int[] getDamage() {
         return damage;
     }
 
-    public void setHealth(double health) {
-        if (health > getMaxHealth()) this.health = maxHealth;
-        else this.health = health;
-    }
-
-    public void setState(States state) {
-        this.state = state;
+    protected void getAttack(Npc hero) {
+        if (attack == hero.protection && speed < position.getDist(hero.getPosition())) hero.health -=(damage[0]+damage[1])/4;
+        if (attack == hero.protection) hero.health -= (damage[0]+damage[1])/2;
+        if (attack > hero.protection && speed < position.getDist(hero.getPosition())) hero.health -= damage[1]/2;
+        if (attack > hero.protection) hero.health -= damage[1];
+        if (attack < hero.protection && speed < position.getDist(hero.getPosition())) hero.health -= damage[0]/2;
+        else  hero.health -= damage[0];
+        if (hero.health <= 0) {
+            hero.health = 0;
+            hero.setState(States.DEAD);
+        }
     }
 
     @Override

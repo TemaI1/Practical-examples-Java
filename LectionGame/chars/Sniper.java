@@ -10,6 +10,21 @@ public class Sniper extends Npc {
         super.position = new Vector2(x, y);
         this.shoot = shoot;
     }
+
+    private Npc findAim(List<Npc> team) {
+        float minDistance = Float.MAX_VALUE;
+        int index = 0;
+        for (int i = 0; i < team.size(); i++) {
+            if (team.get(i).getState() == States.DEAD) continue;
+            float distance = getPosition().getDist(team.get(i).getPosition());
+            if (minDistance > distance) {
+                minDistance = distance;
+                index = i;
+            }
+        }
+        return team.get(index);
+    }
+    
     @Override
     public void step(List<Npc> team) {
         if (getState() == States.DEAD) return;
@@ -20,5 +35,9 @@ public class Sniper extends Npc {
                 getTeam().get(i).setState(States.USED);
             }
         }
+        if (shoot <= 0) return;
+        shoot--;
+        Npc aim = findAim(team);
+        getAttack(aim);
     }
 }
