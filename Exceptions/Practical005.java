@@ -13,7 +13,7 @@ public class Practical005 {
 
         if (result == null || result.isEmpty() || result.equals(" ")) {
             try {
-                throw new Exception("Ваша строка пуста!");
+                throw new Exception();
             } catch (Exception e) {
                 System.out.println("Ваша строка пуста!");
             }
